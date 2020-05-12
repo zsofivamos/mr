@@ -2,15 +2,16 @@
 #'
 #' This is a wrapper around the \code{binancer} package ...
 #' @export
-#' @param retried the number of retires previously done before the exponential backoff sleep
+#' @param retried the number if retries previously done before the exponential backoff sleep
 #' @importFrom binancer binance_coins_prices
-get_bitcoin_price <- function(retried = 0){
+get_bitcoin_price <- function(retried = 0) {
   tryCatch(
-    binance_coins_prices()[symbol == 'BTC', usd],
+    ## not using data.table syntax here and falling back to data.frame
+    ## so that this could run on systems wihtout data.table as well
+    subset(binance_coins_prices(), symbol == 'BTC')$usd,
     error = function(e) {
+      ## exponential backoff retries
       Sys.sleep(1 + retried^2)
       get_bitcoin_price(retried = retried + 1)
     })
 }
-
-

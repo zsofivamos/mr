@@ -1,5 +1,6 @@
 #' Function to retrieve historical exchange rates of a base to a symbol currency for the
 #' past x amount of days
+#'
 #' @param from string - base currency
 #' @param to string - target currency
 #' @param days int - T-number of days we're querying
@@ -12,7 +13,6 @@
 
 convert_currency <- function(from, to, days) {
 
-  ## get exchange rate
   exchange_rates <- content(GET(
     'https://api.exchangeratesapi.io/history',
     query = list(

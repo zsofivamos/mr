@@ -4,5 +4,5 @@
 #' @export
 #' @importFrom scales dollar
 forint <- function(x){
-  dollar(x, prefix = "", suffix = " Ft")
+  dollar(x, prefix = "", suffix = " HUF")
 }
